@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "Auto Tab Grouper",
+  "version": "1.0",
+  "description": "自动根据域名对标签页进行分组",
+  "icons": {
+    "48": "logo/icon48.png",
+    "96": "logo/icon96.png",
+    "100": "logo/icon100.png"
+ },
+  "action": {
+    "default_icon": {
+      "48": "logo/icon48.png",
+      "96": "logo/icon96.png",
+      "100": "logo/icon100.png"
+    }
+  },
+  "permissions": [
+    "tabs",
+    "tabGroups",
+    "storage"
+  ],
+  "commands": {
+    "toggle-current-group": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Z",
+        "mac": "Command+Shift+Z"
+      },
+      "description": "展开/折叠当前标签组"
+    },
+    "toggle-all-groups": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+X",
+        "mac": "Command+Shift+X"
+      },
+      "description": "展开/折叠所有标签组"
+    }
+  },
+  "background": {
+    "service_worker": "js/background.js"
+  }
+}
