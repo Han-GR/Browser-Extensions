@@ -21,7 +21,11 @@
 - 仅在本地操作浏览历史和白名单
 - 不会影响网站登录状态、Cookie、LocalStorage等，仅清除历史记录
 
-5. 常见问题
+5. 国际化（i18n）
+- 插件界面和所有提示信息**自动支持中英文**，根据浏览器语言环境自动切换，无需手动设置
+- 中文环境下显示中文，其它环境下显示英文
+
+6. 常见问题
 - Q: 为什么有的网站历史没有被清理？
   A: 请检查白名单设置，或确认该网站URL格式是否正确。
 - Q: 会影响账号登录吗？
@@ -54,7 +58,11 @@ This plugin is especially suitable for:
 - Only operates on local browsing history and whitelist
 - Does not affect login status, cookies, or local storage—only clears history
 
-5. FAQ
+5. Internationalization (i18n)
+- The extension UI and all prompts **automatically support both English and Chinese**. The language switches automatically based on your browser environment—no manual setting required.
+- Chinese is shown in Chinese environments, English elsewhere.
+
+6. FAQ
 - Q: Why are some sites' history not cleared?
   A: Please check your whitelist settings or confirm the URL format is correct.
 - Q: Will it affect my login status?
