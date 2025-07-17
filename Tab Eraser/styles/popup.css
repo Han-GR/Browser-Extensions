@@ -4,8 +4,8 @@ body {
   font-family: 'SF Pro Display', 'Segoe UI', Arial, sans-serif;
   background: #232946;
   color: #f4f4f4;
-  min-width: 320px;
-  min-height: 260px;
+  min-width: 330px;
+  min-height: 220px;
 }
 
 .popup-container {
