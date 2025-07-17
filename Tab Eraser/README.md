@@ -1,133 +1,63 @@
-# Tab Eraser
+1. 自动历史清理（Tab Eraser）
+- 当用户关闭标签页时，插件会自动删除该标签页访问过的所有浏览历史记录
+- 支持白名单功能，白名单中的网站不会被自动清理历史
+- 所有操作本地完成，不上传任何数据，保护用户隐私
 
-## 项目概述
-Tab Eraser 是一款专注隐私保护的浏览器插件，能够在用户关闭标签页时自动删除该标签页的所有浏览历史记录。插件支持白名单功能，用户可自定义哪些网站不被自动清理。适用于注重隐私、希望浏览历史保持整洁的用户。
+2. 白名单管理
+- 点击插件图标弹出管理界面
+- 可添加、编辑、删除白名单域名
+- 白名单支持主域名和子域名（如example.com可匹配www.example.com）
+- 白名单数据保存在本地浏览器存储中
 
-## 目标用户
+3. 实用场景
+这个插件特别适合以下场景：
+- 临时浏览敏感内容后希望自动清除历史
 - 注重隐私保护的用户
-- 经常临时浏览敏感内容的用户
 - 希望浏览器历史保持整洁的用户
+- 不希望手动清理历史的用户
 
-## 技术选型
-- 开发语言: JavaScript (ES6+)
-- 插件架构: Manifest V3
-- UI框架: 原生HTML/CSS，兼容暗色模式
-- 状态管理: chrome.storage.local
-- 跨模块通信: chrome.runtime.sendMessage
-- 兼容性: Chrome、Edge、部分支持Firefox
+4. 隐私与安全
+- 插件不会上传、同步或分析任何用户数据
+- 仅在本地操作浏览历史和白名单
+- 不会影响网站登录状态、Cookie、LocalStorage等，仅清除历史记录
 
-## 应用结构
-- background：后台脚本，监听标签页关闭、管理历史清理逻辑
-- content：内容脚本，辅助记录页面访问（如有需要）
-- popup：弹窗页面，管理白名单设置
-- assets：图标、图片资源
-- styles：样式文件
-
-## 页面结构
-| 页面/视图名称 | 用途 | 核心功能 | 技术实现 | 导航/用户流程 | 建议文件路径 |
-|:--------:|:----:|:--------:|:--------:|:--------:|:--------:|
-| 后台脚本（background） | 监听标签页关闭，执行历史清理 | 监听tab关闭、判断白名单、删除历史 | JS + chrome.tabs、chrome.history、chrome.storage | 浏览器事件自动触发，无需用户操作 | `js/background.js` |
-| 弹窗页面（popup） | 白名单管理 | 展示/编辑白名单、保存设置 | HTML/CSS/JS + chrome.storage | 点击插件图标弹出，用户可增删白名单 | `popup/popup.html`、`popup/popup.js` |
-| 样式文件 | 美化弹窗UI，支持暗色模式 | 弹窗样式、响应式布局 | CSS | 弹窗页面自动加载 | `styles/popup.css` |
-| 图标资源 | 插件图标、弹窗logo | 显示在扩展栏、弹窗 | PNG/SVG | 浏览器自动加载 | `image/`、`logo/` |
-
-## 数据模型
-- 白名单：以域名为单位的字符串数组，存储于chrome.storage.local
-- 历史记录：无需持久化，仅在标签页关闭时临时处理
-
-## 技术实现细节
-
-### 后台脚本（background）
-
-#### UI设计方案
-- 该模块为后台脚本，无界面，仅负责逻辑处理。
-
-#### 数据管理方案
-- 使用`chrome.storage.local`存储白名单（域名数组）。
-- 通过`chrome.webNavigation`监听每个tab的访问URL，记录每个tab访问过的URL集合（内存中）。
-- 关闭tab时，判断每个URL是否在白名单域名内，若不在则调用`chrome.history.deleteUrl`删除。
-
-#### 交互实现
-- 监听`chrome.tabs.onRemoved`事件，获取被关闭tab的ID。
-- 结合tab访问记录，逐一删除历史。
-- 通过`chrome.runtime.onMessage`与popup通信，支持白名单的读取和写入。
-
-#### iOS特性利用
-- 无（非iOS应用）
-
-#### 可访问性考虑
-- 无界面，无需可访问性支持。
-
-#### 组件复用
-- 访问记录与白名单管理逻辑可被popup页面共用。
-
-#### 功能完整性检查表
-- [x] 监听标签页关闭事件
-- [x] 记录每个tab访问过的URL
-- [x] 判断白名单域名
-- [x] 删除历史记录
-- [x] 与popup通信，管理白名单
-
-### 弹窗页面（popup）
-
-#### UI设计方案
-- 简洁现代的暗色科技风弹窗，主色调为冷色系霓虹渐变（蓝、紫、青）
-- 顶部展示插件logo和名称
-- 白名单管理区：展示当前白名单域名列表，每行可编辑/删除
-- 新增白名单输入框+添加按钮
-- 操作反馈（如添加/删除成功提示）
-- 响应式布局，兼容高分屏
-- 支持暗色模式
-
-#### 数据管理方案
-- 白名单数据通过`chrome.storage.local`持久化
-- 弹窗页面通过`chrome.runtime.sendMessage`与后台通信，获取和更新白名单
-- 输入框本地状态管理（JS变量）
-
-#### 交互实现
-- 打开弹窗时自动加载白名单列表
-- 支持添加新域名、删除已有域名、编辑域名
-- 操作后自动保存并刷新列表
-- 操作结果友好提示
-
-#### iOS特性利用
-- 无（非iOS应用）
-
-#### 可访问性考虑
-- 所有输入框、按钮均有aria-label
-- 支持键盘操作（Tab切换、Enter添加）
-- 颜色对比度符合无障碍标准
-
-#### 组件复用
-- 白名单管理逻辑与后台脚本共用
-- 可复用输入组件、列表项组件
-
-#### 功能完整性检查表
-- [x] 展示白名单列表
-- [x] 添加新域名
-- [x] 删除域名
-- [x] 编辑域名
-- [x] 操作反馈与无障碍支持
-- [x] 与后台通信，持久化白名单
-
-### 样式文件
-- 暗色科技风，冷色系霓虹渐变，响应式布局，兼容高分屏和无障碍
-- 已集成于弹窗页面
-
-#### 功能完整性检查表
-- [x] 弹窗UI美观、响应式
-- [x] 支持暗色模式
-- [x] 兼容高分屏
-- [x] 无障碍支持
-
-## 开发状态跟踪
-| 页面/组件名称 | 开发状态 | 文件路径 |
-|:-------------:|:--------:|:------------:|
-| 后台脚本（background） | 已完成 | `js/background.js` |
-| 弹窗页面（popup） | 已完成 | `popup/popup.html`、`popup/popup.js` |
-| 样式文件 | 已完成 | `styles/popup.css` |
-| 图标资源 | 已完成 | `image/`、`logo/` |
+5. 常见问题
+- Q: 为什么有的网站历史没有被清理？
+  A: 请检查白名单设置，或确认该网站URL格式是否正确。
+- Q: 会影响账号登录吗？
+  A: 不会，插件只清除历史，不会清除Cookie等登录凭证。
+- Q: 白名单添加后，之前的历史记录还会被清理吗？
+  A: 白名单只对添加后生效，添加白名单前的历史记录需手动删除。
 
 ---
 
-🎉 恭喜！所有页面和核心功能都已开发完成。你现在可以打包插件，加载到浏览器进行体验。如果需要manifest.json配置、打包发布说明或自动化测试，请随时告知！ 
+1. Auto History Cleaner (Tab Eraser)
+- When you close a tab, the plugin automatically deletes all browsing history visited in that tab
+- Supports whitelist: sites in the whitelist will not be auto-cleaned
+- All operations are local, no data is uploaded, privacy is protected
+
+2. Whitelist Management
+- Click the extension icon to open the management popup
+- Add, edit, or delete whitelist domains
+- Whitelist supports both main and subdomains (e.g. example.com matches www.example.com)
+- Whitelist data is stored locally in your browser
+
+3. Practical Scenarios
+This plugin is especially suitable for:
+- Automatically clearing history after browsing sensitive content
+- Privacy-conscious users
+- Users who want to keep their browser history clean
+- Users who don't want to manually clear history
+
+4. Privacy & Security
+- The plugin does not upload, sync, or analyze any user data
+- Only operates on local browsing history and whitelist
+- Does not affect login status, cookies, or local storage—only clears history
+
+5. FAQ
+- Q: Why are some sites' history not cleared?
+  A: Please check your whitelist settings or confirm the URL format is correct.
+- Q: Will it affect my login status?
+  A: No, the plugin only clears history, not cookies or login credentials.
+- Q: Will adding a site to the whitelist protect its previous history?
+  A: The whitelist only takes effect after being added. You need to manually delete history from before the site was whitelisted. 
