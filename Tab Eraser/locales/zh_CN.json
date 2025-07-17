@@ -1,0 +1,16 @@
+{
+  "title": "Tab Eraser",
+  "whitelistTitle": "白名单",
+  "inputPlaceholder": "输入域名，如example.com",
+  "addBtn": "添加",
+  "feedbackExists": "域名已存在",
+  "feedbackInvalid": "域名格式不正确",
+  "feedbackEmpty": "请输入有效域名",
+  "feedbackSuccess": "添加成功",
+  "feedbackDelete": "删除成功",
+  "feedbackEdit": "修改成功",
+  "autoCleanLabel": "关闭浏览器时自动清理历史",
+  "languageLabel": "语言",
+  "zh": "中文",
+  "en": "英文"
+}
