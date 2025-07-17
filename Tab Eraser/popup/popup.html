@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab Eraser 白名单管理</title>
+  <link rel="stylesheet" href="../styles/popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <header>
+      <img src="../image/logo/logo128.png" alt="Tab Eraser Logo" class="logo"/>
+      <h1 class="title">Tab Eraser</h1>
+    </header>
+    <main>
+      <section class="whitelist-section">
+        <h2>白名单管理</h2>
+        <ul id="whitelist-list" aria-label="白名单域名列表"></ul>
+        <div class="add-whitelist">
+          <input type="text" id="whitelist-input" placeholder="输入域名，如example.com" aria-label="输入域名"/>
+          <button id="add-btn" aria-label="添加域名">添加</button>
+        </div>
+        <div id="feedback" class="feedback" aria-live="polite"></div>
+      </section>
+    </main>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html> 
