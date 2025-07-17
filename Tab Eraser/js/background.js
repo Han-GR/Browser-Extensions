@@ -48,6 +48,23 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   }
 });
 
+// 新增：切换标签页时，主动记录当前tab的URL
+chrome.tabs.onActivated.addListener(activeInfo => {
+  chrome.tabs.get(activeInfo.tabId, (tab) => {
+    if (tab && tab.url) {
+      recordTabUrl(activeInfo.tabId, tab.url);
+    }
+  });
+});
+
+// 新增：tab被替换时迁移历史
+chrome.tabs.onReplaced.addListener((addedTabId, removedTabId) => {
+  if (tabUrlMap[removedTabId]) {
+    tabUrlMap[addedTabId] = tabUrlMap[removedTabId];
+    delete tabUrlMap[removedTabId];
+  }
+});
+
 // 监听tab关闭，清理历史
 chrome.tabs.onRemoved.addListener(async (tabId) => {
   const urls = tabUrlMap[tabId];
