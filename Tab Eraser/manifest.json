@@ -4,9 +4,9 @@
   "version": "1.0.0",
   "description": "关闭标签页时自动删除该标签页的浏览历史，支持白名单。",
   "icons": {
-    "16": "image/logo/logo128.png",
-    "48": "image/logo/logo128.png",
-    "128": "image/logo/logo128.png"
+    "48": "logo/icon48.png",
+    "96": "logo/icon96.png",
+    "100": "logo/icon100.png"
   },
   "background": {
     "service_worker": "js/background.js"
@@ -23,9 +23,9 @@
   "action": {
     "default_popup": "popup/popup.html",
     "default_icon": {
-      "16": "image/logo/logo128.png",
-      "48": "image/logo/logo128.png",
-      "128": "image/logo/logo128.png"
+      "48": "logo/icon48.png",
+      "96": "logo/icon96.png",
+      "100": "logo/icon100.png"
     }
   }
-} 
+}
