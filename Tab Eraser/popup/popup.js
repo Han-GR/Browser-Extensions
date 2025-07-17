@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
       input.addEventListener('change', (e) => editDomain(idx, e.target.value));
 
       const delBtn = document.createElement('button');
-      delBtn.textContent = '删除';
+      delBtn.textContent = '-';
       delBtn.setAttribute('aria-label', `删除域名${domain}`);
       delBtn.addEventListener('click', () => deleteDomain(idx));
 
@@ -151,4 +151,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   loadWhitelist();
-}); 
+});
