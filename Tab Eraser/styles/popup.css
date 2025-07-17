@@ -133,6 +133,25 @@ header {
   color: #ff5e5e;
 }
 
+.setting-section {
+  margin-top: 14px;
+  padding-top: 8px;
+  border-top: 1px solid #2e325a;
+}
+.setting-label {
+  font-size: 0.98rem;
+  color: #f4f4f4;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.setting-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #43e0e0;
+}
+
 @media (max-width: 400px) {
   .popup-container {
     padding: 8px 2px;

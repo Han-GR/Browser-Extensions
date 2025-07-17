@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const inputEl = document.getElementById('whitelist-input');
   const addBtn = document.getElementById('add-btn');
   const feedbackEl = document.getElementById('feedback');
+  const autoCleanEl = document.getElementById('auto-clean-on-exit');
 
   let whitelist = [];
 
@@ -137,6 +138,16 @@ document.addEventListener('DOMContentLoaded', () => {
   addBtn.addEventListener('click', addDomain);
   inputEl.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') addDomain();
+  });
+
+  // 加载开关状态
+  chrome.storage.local.get({ autoCleanOnExit: false }, (result) => {
+    autoCleanEl.checked = !!result.autoCleanOnExit;
+  });
+
+  // 监听开关变化
+  autoCleanEl.addEventListener('change', () => {
+    chrome.storage.local.set({ autoCleanOnExit: autoCleanEl.checked });
   });
 
   loadWhitelist();

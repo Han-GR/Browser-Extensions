@@ -90,4 +90,28 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     });
     return true;
   }
+});
+
+// 启动时批量清理历史
+chrome.runtime.onStartup.addListener(() => {
+  chrome.storage.local.get({ autoCleanOnExit: false, whitelist: [] }, (result) => {
+    if (!result.autoCleanOnExit) return;
+    const whitelist = result.whitelist;
+    // 查询所有历史，批量删除非白名单
+    chrome.history.search({ text: '', maxResults: 10000 }, (items) => {
+      items.forEach(item => {
+        const url = item.url;
+        try {
+          const hostname = new URL(url).hostname.toLowerCase();
+          const isWhite = whitelist.some(domain => {
+            const cleanDomain = domain.trim().replace(/^\.+/, '').toLowerCase();
+            return hostname === cleanDomain || hostname.endsWith('.' + cleanDomain);
+          });
+          if (!isWhite) {
+            chrome.history.deleteUrl({ url });
+          }
+        } catch {}
+      });
+    });
+  });
 }); 
