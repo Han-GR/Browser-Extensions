@@ -140,7 +140,7 @@ header {
 }
 .setting-label {
   font-size: 0.98rem;
-  color: #f4f4f4;
+  color: #43e0e0;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -151,17 +151,6 @@ header {
   height: 16px;
   accent-color: #43e0e0;
 }
-.lang-select {
-  margin-left: auto;
-  background: #20223a;
-  color: #43e0e0;
-  border: 1px solid #2e325a;
-  border-radius: 4px;
-  font-size: 0.98rem;
-  padding: 2px 8px;
-  outline: none;
-}
-/* .lang-label 样式已移除 */
 
 @media (max-width: 400px) {
   .popup-container {
@@ -171,4 +160,4 @@ header {
   .title {
     font-size: 1rem;
   }
-} 
+}

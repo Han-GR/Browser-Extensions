@@ -7,9 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const addBtn = document.getElementById('add-btn');
   const feedbackEl = document.getElementById('feedback');
   const autoCleanEl = document.getElementById('auto-clean-on-exit');
-  const langSelect = document.getElementById('lang-select');
-  let lang = 'zh_CN';
-  let i18n = {};
 
   let whitelist = [];
 
@@ -128,33 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 加载语言资源
-  function loadLocale(locale, cb) {
-    fetch(`../locales/${locale}.json`)
-      .then(res => res.json())
-      .then(data => {
-        i18n = data;
-        lang = locale;
-        chrome.storage.local.set({ tabEraserLang: locale });
-        cb && cb();
-      });
-  }
-
-  // 应用界面文本
-  function applyLocale() {
-    document.getElementById('title').textContent = i18n.title;
-    document.querySelector('.whitelist-section h2').textContent = i18n.whitelistTitle;
-    inputEl.placeholder = i18n.inputPlaceholder;
-    addBtn.textContent = i18n.addBtn;
-    document.querySelector('.setting-label').lastChild.textContent = i18n.autoCleanLabel;
-    // 移除对lang-label的赋值，无需再设置语言label
-    langSelect.options[0].textContent = i18n.zh;
-    langSelect.options[1].textContent = i18n.en;
-  }
-
   // 操作反馈
-  function showFeedback(msgKey, isError = false) {
-    feedbackEl.textContent = i18n[msgKey] || msgKey;
+  function showFeedback(msg, isError = false) {
+    feedbackEl.textContent = msg;
     feedbackEl.className = isError ? 'feedback error' : 'feedback';
     setTimeout(() => {
       feedbackEl.textContent = '';
@@ -175,18 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // 监听开关变化
   autoCleanEl.addEventListener('change', () => {
     chrome.storage.local.set({ autoCleanOnExit: autoCleanEl.checked });
-  });
-
-  // 监听语言切换
-  langSelect.addEventListener('change', () => {
-    loadLocale(langSelect.value, applyLocale);
-  });
-
-  // 初始化语言
-  chrome.storage.local.get({ tabEraserLang: 'zh_CN' }, (result) => {
-    lang = result.tabEraserLang;
-    langSelect.value = lang;
-    loadLocale(lang, applyLocale);
   });
 
   loadWhitelist();
