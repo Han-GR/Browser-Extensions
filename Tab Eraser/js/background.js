@@ -16,8 +16,12 @@ function getWhitelist() {
 // 判断URL是否属于白名单
 function isWhitelisted(url, whitelist) {
   try {
-    const hostname = new URL(url).hostname;
-    return whitelist.some(domain => hostname.endsWith(domain));
+    const hostname = new URL(url).hostname.toLowerCase();
+    return whitelist.some(domain => {
+      const cleanDomain = domain.trim().replace(/^\.+/, '').toLowerCase();
+      // 只允许纯域名，不含协议和路径
+      return hostname === cleanDomain || hostname.endsWith('.' + cleanDomain);
+    });
   } catch {
     return false;
   }

@@ -41,11 +41,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // 域名清洗函数，只保留主域名
+  function cleanDomain(input) {
+    try {
+      let domain = input.trim().toLowerCase();
+      // 去除协议
+      domain = domain.replace(/^https?:\/\//, '');
+      // 去除路径和参数
+      domain = domain.split('/')[0].split(':')[0];
+      // 去除前后的点
+      domain = domain.replace(/^\.+|\.+$/g, '');
+      return domain;
+    } catch {
+      return '';
+    }
+  }
+
+  // 域名合法性校验
+  function isValidDomain(domain) {
+    // 只允许字母、数字、点和短横线，且至少包含一个点
+    return /^[a-z0-9.-]+\.[a-z]{2,}$/.test(domain);
+  }
+
   // 添加新域名
   function addDomain() {
-    const val = inputEl.value.trim();
+    let val = inputEl.value.trim();
+    val = cleanDomain(val);
     if (!val) {
-      showFeedback('请输入域名', true);
+      showFeedback('请输入有效域名', true);
+      return;
+    }
+    if (!isValidDomain(val)) {
+      showFeedback('域名格式不正确', true);
       return;
     }
     if (whitelist.includes(val)) {
@@ -65,9 +92,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 编辑域名
   function editDomain(idx, newVal) {
-    newVal = newVal.trim();
+    newVal = cleanDomain(newVal);
     if (!newVal) {
       showFeedback('域名不能为空', true);
+      renderList();
+      return;
+    }
+    if (!isValidDomain(newVal)) {
+      showFeedback('域名格式不正确', true);
       renderList();
       return;
     }
