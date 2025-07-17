@@ -140,7 +140,7 @@ header {
 }
 .setting-label {
   font-size: 0.98rem;
-  color: #43e0e0;
+  color: #f4f4f4;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -171,4 +171,4 @@ header {
   .title {
     font-size: 1rem;
   }
-}
+} 
