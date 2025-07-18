@@ -1,3 +1,5 @@
+这个插件的主要目标是提高用户的浏览效率，通过自动化的标签管理来减少手动整理标签的工作量。
+
 1. 自动标签分组
 - 当用户打开新标签页时，插件会自动检测网站域名
 - 如果存在相同域名的标签页，会自动将它们分组在一起
@@ -21,10 +23,16 @@
 - 希望保持浏览器标签整洁的用户
 - 经常需要在不同标签组之间切换的用户
 
-这个插件的主要目标是提高用户的浏览效率，通过自动化的标签管理来减少手动整理标签的工作量。
+5. 安装
+- [edge浏览器](https://microsoftedge.microsoft.com/addons/detail/homfgnajmdcljeincjmhmpmhaflomcbg)
+- [chrome浏览器](https://chromewebstore.google.com/detail/auto-tab-grouper/jbeppelpehlbplbdhkdicfkklmjlpgaf)
+
+---
+
+The main goal of this plug-in is to improve the user's browsing efficiency by automating tag management to reduce the workload of manually organizing tags.
 
 
-1.Automatic label grouping
+1. Automatic label grouping
 - The plugin automatically detects the domain name of the site when the user opens a new tab
 - if tabs for the same domain exist, they are automatically grouped together
 - the newly created group uses the domain name as the group name by default and automatically collapses
@@ -34,7 +42,7 @@ The plug-in provides two shortcut key commands:
 - toggle the fold/expand state of the current tab group: CTRL + Shift + Z (Windows) , Command + Shift + Z (Mac) 
 - toggle the fold/expand state of all tab groups with one click: Ctrl + Shift + X (Windows) , Command + Shift + x (Mac) 
 
-Custom Group name management
+3. Custom Group name management
 - the user can manually modify the label group name
 - The modified group name is saved to the local store
 - saved custom group names are automatically used when tags for the same domain name are grouped again
@@ -47,4 +55,7 @@ This plug-in is particularly suitable for the following scenarios:
 - Users who want to keep their browser tabs clean
 - Users who frequently need to switch between different tab groups
 
-The main goal of this plug-in is to improve the user's browsing efficiency by automating tag management to reduce the workload of manually organizing tags.
+
+5. Install
+- [edge浏览器](https://microsoftedge.microsoft.com/addons/detail/homfgnajmdcljeincjmhmpmhaflomcbg)
+- [chrome浏览器](https://chromewebstore.google.com/detail/auto-tab-grouper/jbeppelpehlbplbdhkdicfkklmjlpgaf)
